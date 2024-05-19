@@ -1,8 +1,10 @@
+import { AppDataSource } from './../database/DataProvider';
 import express, { Request, Response } from "express";
-import Resource from '../database/entities/resource-entites'
-import "reflect-metadata";
+import Resource from '../database/entities/resources'
+import cors from './lib/cors';
+
 const port = process.env.PORT || 3000;
-const cors = require("cors");
+// const cors = require("cors");
 const app = express();
 
 require("dotenv").config();
@@ -10,22 +12,6 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-import { DataSource } from "typeorm";
-
-
-export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || '5432'),
-  username: process.env.DB_USER ,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  synchronize: true,
-  logging: false,
-  entities: [Resource],
-  subscribers: [],
-  migrations: [],
-})
 
 AppDataSource.initialize().then(() =>
   console.log("Postgres connected successfully")
@@ -48,10 +34,10 @@ app.get('/create-resources', async (req: Request, res: Response) => {
   // res.json(allResources)
 });
 app.get('/resources/:id', async (req: Request, res: Response) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const _id = parseInt(id)
   // const allResources = await AppDataSource.getRepository(Resource).findOneBy({id: _id})
-  const allResources = await AppDataSource.manager.findOneBy(Resource, {id: _id})
+  const allResources = await AppDataSource.manager.findOneBy(Resource, { id: _id })
   res.status(200).send(allResources)
 })
 
