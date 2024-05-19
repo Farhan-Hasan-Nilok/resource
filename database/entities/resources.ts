@@ -6,7 +6,7 @@ export default class Resource {
   id: number;
 
   @Column()
-  for: string;
+  topic: string;
 
   @Column()
   description: string;
