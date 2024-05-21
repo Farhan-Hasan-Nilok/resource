@@ -1,6 +1,7 @@
 import { AbstractEntity } from '@/abstracts/abstract.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import User from './user';
+import Resource from './resources';
+// import User from './user';
 
 @Entity('posts')
 export default class Post extends AbstractEntity {
@@ -15,15 +16,12 @@ export default class Post extends AbstractEntity {
 	})
 	url: string;
 
-	@ManyToOne(() => User, (user) => user.post)
-	user: User;
+	@Column()
+	resourceId: number;
 
-	// @CreateDateColumn({ type: 'timestamptz' })
-	// public createdAt: Date;
-
-	// @UpdateDateColumn({ type: 'timestamptz' })
-	// public updatedAt: Date;
-
-	// @DeleteDateColumn()
-	// public deletedAt?: Date;
+	@ManyToOne(() => Resource, (resource) => resource.posts, {
+		cascade: true,
+		eager: true,
+	})
+	resource: Resource;
 }

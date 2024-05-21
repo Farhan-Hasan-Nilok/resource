@@ -1,16 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { AbstractEntity } from '@/abstracts/abstract.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
+import Post from './post';
 
-@Entity()
-export default class Resource {
-	@PrimaryGeneratedColumn()
-	id: number;
-
+@Entity('resource')
+export default class Resource extends AbstractEntity {
 	@Column()
 	topic: string;
 
 	@Column()
 	description: string;
 
-	@Column()
+	@Column({ select: false })
 	link: string;
+
+	@OneToMany(() => Post, (post) => post.resource, {
+		createForeignKeyConstraints: false,
+	})
+	posts: Post[];
 }

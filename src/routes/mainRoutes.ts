@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { AppDataSource } from '@/database/DataProvider';
 import Resource from '@/database/entities/resources';
-import postController from '@/apps/posts/post.controller';
+// import postController from '@/apps/posts/post.controller';
+import Post from '@/database/entities/post';
 const router = Router();
 
 router.get('/resources', async (req: Request, res: Response) => {
@@ -9,7 +10,41 @@ router.get('/resources', async (req: Request, res: Response) => {
 	res.send(allResources);
 });
 
-router.post('/create-post/:id', postController.createPost);
+// router.post('/create-post/:id', postController.createPost);
+router.post('/create-post', async (req: Request, res: Response) => {
+	const { content, title, url } = req.body;
+	const post = new Post();
+	// const resource = new Resource();
+	post.content = content;
+	post.title = title;
+	post.url = url;
+	// console.log(resource.id);
+	post.resourceId = 4;
+	await AppDataSource.manager.save(post);
+	res.status(200).send('Post Created Successfully');
+});
+
+router.get('/all-posts', async (req: Request, res: Response) => {
+	const posts = await AppDataSource.getRepository(Post).find({
+		// select: {
+		// 	id: true,
+		// 	content: true,
+		// 	title: true,
+		// 	url: true,
+		// 	createdAt: true,
+		// 	updatedAt: true,
+		// 	resource: {
+		// 		topic: true,
+		// 		createdAt: true,
+		// 		id: true,
+		// 	},
+		// },
+		// relations: {
+		// 	resource: true,
+		// },
+	});
+	return res.status(200).json(posts);
+});
 
 router.get('/resources/category', async (req: Request, res: Response) => {
 	const category = req.query.category;
