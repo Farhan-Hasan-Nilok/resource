@@ -1,0 +1,27 @@
+/**
+ * @openapi
+ * '/api/v1/client/register':
+ *    post:
+ *      tags:
+ *      - Auth
+ *      summery: User (Admin, user) register
+ *      requestBody:
+ *        content:
+ * 			    application/x-www-form-urlencoded:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                password:
+ *                  type: string
+ *                username:
+ *                  type: string
+ *            encoding:
+ *              color:
+ *                style: form
+ *                explode: false
+ *      responses:
+ *         200:
+ *          description: Registration successfull
+ */

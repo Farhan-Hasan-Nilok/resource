@@ -1,9 +1,10 @@
 import { DataSourceOptions } from 'typeorm';
 import 'reflect-metadata';
 import dotenv from 'dotenv';
-import Resource from '@/database/entities/resources';
-import Post from '@/database/entities/post';
-import User from '@/database/entities/user';
+import { Company } from '../entities/company';
+import { Product } from '../entities/products';
+import { Question } from '../entities/Question';
+import { Category } from '../entities/category';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ const dataSourceConfig: DataSourceOptions = {
 	database: process.env.DB_NAME,
 	synchronize: true,
 	logging: false,
-	entities: [Resource, Post, User],
+	entities: [Company, Product, Question, Category],
 	subscribers: [],
 	migrations: [],
 };
