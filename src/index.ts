@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 	res.send('Hello, TypeScript Express!');
 });
 
-app.use('/api/v1', mainRoutes);
+app.use('/api', mainRoutes);
 
 // app.get('/resources/:id', async (req: Request, res: Response) => {
 // 	const { id } = req.params;
