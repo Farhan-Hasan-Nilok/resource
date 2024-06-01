@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import dotenv from 'dotenv';
 import { Company } from '../entities/company';
 import { Product } from '../entities/products';
-import { Question } from '../entities/Question';
+// import { Question } from '../entities/Question';
 import { Category } from '../entities/category';
 
 dotenv.config();
@@ -17,7 +17,7 @@ const dataSourceConfig: DataSourceOptions = {
 	database: process.env.DB_NAME,
 	synchronize: true,
 	logging: false,
-	entities: [Company, Product, Question, Category],
+	entities: [Company, Product, Category],
 	subscribers: [],
 	migrations: [],
 };

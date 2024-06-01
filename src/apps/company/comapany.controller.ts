@@ -12,13 +12,13 @@ export class CompanyController {
 	}
 
 	async individualCompanyData(req: Request, res: Response) {
-    console.log('$$$$$$$$$$$$$$$$$$$$$$')
-		const { id }: string = req.params;
+		// const { id }: number = req.params;
 		const singleCompanyData = await AppDataSource.getRepository(
 			Company,
 		).findOne({
-			where: { id: id },
+			where: { id: 4 },
 		});
+		console.log(singleCompanyData);
 		return res.json(singleCompanyData);
 	}
 }

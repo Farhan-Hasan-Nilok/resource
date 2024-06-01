@@ -3,7 +3,7 @@ import express, { Request, Response } from 'express';
 // import Resource from '@/database/entities/resources';
 import cors from './lib/cors';
 import mainRoutes from './routes/mainRoutes';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3100;
 // const cors = require("cors");
 const app = express();
 
@@ -14,7 +14,7 @@ AppDataSource.initialize()
 	.then(() => console.log('Postgres connected successfully'))
 	.catch((err: Error) => console.error('Error postgres initialization', err));
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
 	res.send('Hello, TypeScript Express!');
 });
 
